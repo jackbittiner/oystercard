@@ -3,7 +3,7 @@ class Oystercard
   attr_reader :balance, :limit, :in_journey
 
   MAX_BALANCE = 90
-  
+
   def initialize
     @balance = 0
     @limit = MAX_BALANCE
@@ -19,6 +19,10 @@ class Oystercard
     self.balance -= money
   end
 
+  def touch_in
+    self.in_journey = true
+  end
+
   private
-  attr_writer :balance
+  attr_writer :balance, :in_journey
 end
