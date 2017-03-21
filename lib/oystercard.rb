@@ -12,6 +12,9 @@ class Oystercard
     self.balance += money
   end
 
+  def deduct(money)
+  end
+
   private
   attr_writer :balance
 end
