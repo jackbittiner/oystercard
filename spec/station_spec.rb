@@ -1,10 +1,13 @@
 require 'station'
 describe Station do
 
-  subject(:station) {described_class.new("Tooting")}
+  subject {described_class.new("Tooting", 1)}
 
-  describe '#name' do
-    it { is_expected.to respond_to(:name) }
+  it 'returns its name' do
+    expect(subject.name).to eq("Tooting")
   end
 
+  it 'returns its zone' do
+    expect(subject.zone).to eq(1)
+  end
 end
