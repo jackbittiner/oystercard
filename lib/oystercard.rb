@@ -1,7 +1,6 @@
+require_relative 'station'
 class Oystercard
-
-  attr_reader :balance, :limit, :in_journey
-
+  attr_reader :balance, :limit, :in_journey, :deduct
   MAX_BALANCE = 90
   MIN_FARE = 1
 
@@ -16,9 +15,6 @@ class Oystercard
     self.balance += money
   end
 
-  def deduct(money)
-    self.balance -= money
-  end
 
   def touch_in
     fail "Insufficient Funds" if balance < MIN_FARE
@@ -27,8 +23,15 @@ class Oystercard
 
   def touch_out
     self.in_journey = false
+    deduct(MIN_FARE)
   end
 
+
   private
+
   attr_writer :balance, :in_journey
+
+  def deduct(money)
+    self.balance -= money
+  end
 end
