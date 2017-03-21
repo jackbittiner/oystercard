@@ -3,6 +3,8 @@ require 'oystercard'
 describe Oystercard do
 
   let(:station) {double (:station)}
+  let(:station1) {double (:station1)}
+  let(:station2) {double (:station2)}
 
   it { is_expected.to respond_to(:top_up).with(1).argument}
 
@@ -73,11 +75,21 @@ describe Oystercard do
     it 'deducts minimum fare from card balance' do
       expect {subject.touch_out(station)}.to change{ subject.balance}.by -Oystercard::MIN_FARE
     end
+
+    it 'stores entry and exit stations as a hash in journeys' do
+      subject.top_up(Oystercard::MIN_FARE)
+      subject.touch_in(station1)
+      subject.touch_out(station2)
+      expect(subject.journeys).to eq [{station1: station2}]
+    end
   end
 
   describe '#journeys' do
     it 'should have an empty array called journeys' do
     expect(subject.journeys).to eq []
   end
+
+
+
   end
 end
