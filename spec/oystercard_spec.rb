@@ -3,8 +3,9 @@ require 'oystercard'
 describe Oystercard do
 
   let(:station) {double (:station)}
-  let(:station1) {double (:station1)}
-  let(:station2) {double (:station2)}
+  let(:entry_station) {double (:station)}
+  let(:exit_station) {double (:station)}
+  let(:journey) { {entry_station: entry_station, exit_station: exit_station} }
 
   it { is_expected.to respond_to(:top_up).with(1).argument}
 
@@ -84,9 +85,9 @@ describe Oystercard do
 
     it 'stores entry and exit stations as a hash in journeys' do
       subject.top_up(Oystercard::MIN_FARE)
-      subject.touch_in(station1)
-      subject.touch_out(station2)
-      expect(subject.journeys).to eq [{station1 => station2}]
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+      expect(subject.journeys).to include journey
     end
   end
 
