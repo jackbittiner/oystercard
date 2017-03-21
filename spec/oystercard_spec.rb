@@ -35,6 +35,14 @@ describe Oystercard do
   end
 
   describe '#in_journey?' do
-    it { is_expected.to respond_to(:in_journey?)}
+    it { is_expected.to respond_to(:in_journey)}
   end
+
+  describe '#touch_in' do
+    it 'changes in_journey to true when card is touched in' do
+      subject.touch_in
+      expect(subject.in_journey).to eq true
+    end
+  end
+
 end
