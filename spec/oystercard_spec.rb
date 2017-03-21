@@ -71,4 +71,10 @@ describe Oystercard do
       expect {subject.touch_out}.to change{ subject.balance}.by -Oystercard::MIN_FARE
     end
   end
+
+  describe '#journeys' do
+    it 'should have an empty array called journeys' do
+    expect(subject.journeys).to eq []
+  end
+  end
 end
