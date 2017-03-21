@@ -46,7 +46,7 @@ describe Oystercard do
     it 'assigns the current station when touched in' do
       subject.top_up(Oystercard::MIN_FARE)
       subject.touch_in(station)
-      expect(subject.current_station).to eq station
+      expect(subject.entry_station).to eq station
     end
 
   end
@@ -57,6 +57,13 @@ describe Oystercard do
       subject.touch_in(station)
       subject.touch_out
       expect(subject.in_journey).to eq false
+    end
+
+    it 'forgets the entry station when touched out' do
+      subject.top_up(Oystercard::MIN_FARE)
+      subject.touch_in(station)
+      subject.touch_out
+      expect(subject.entry_station).to eq nil
     end
 
     it 'deducts minimum fare from card balance' do
