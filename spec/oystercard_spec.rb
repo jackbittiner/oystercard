@@ -52,10 +52,13 @@ describe Oystercard do
   end
 
   describe '#touch_out' do
+
+    it { is_expected.to respond_to(:touch_out).with(1).argument}
+
     it 'changes in_journey to false when card is touched out' do
       subject.top_up(Oystercard::MIN_FARE)
       subject.touch_in(station)
-      subject.touch_out
+      subject.touch_out(station)
       subject.in_journey?
       expect(subject.in_journey?).to eq false
     end
@@ -63,12 +66,12 @@ describe Oystercard do
     it 'forgets the entry station when touched out' do
       subject.top_up(Oystercard::MIN_FARE)
       subject.touch_in(station)
-      subject.touch_out
+      subject.touch_out(station)
       expect(subject.entry_station).to eq nil
     end
 
     it 'deducts minimum fare from card balance' do
-      expect {subject.touch_out}.to change{ subject.balance}.by -Oystercard::MIN_FARE
+      expect {subject.touch_out(station)}.to change{ subject.balance}.by -Oystercard::MIN_FARE
     end
   end
 
