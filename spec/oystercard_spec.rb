@@ -28,7 +28,7 @@ describe Oystercard do
   end
 
   describe '#in_journey?' do
-    it { is_expected.to respond_to(:in_journey)}
+    it { is_expected.to respond_to(:in_journey?)}
   end
 
   describe '#touch_in' do
@@ -36,7 +36,7 @@ describe Oystercard do
     it 'changes in_journey to true when card is touched in' do
       subject.top_up(Oystercard::MIN_FARE)
       subject.touch_in(station)
-      expect(subject.in_journey).to eq true
+      expect(subject.in_journey?).to eq true
     end
 
     it 'raises an error when the card has insufficient funds' do
@@ -56,7 +56,8 @@ describe Oystercard do
       subject.top_up(Oystercard::MIN_FARE)
       subject.touch_in(station)
       subject.touch_out
-      expect(subject.in_journey).to eq false
+      subject.in_journey?
+      expect(subject.in_journey?).to eq false
     end
 
     it 'forgets the entry station when touched out' do
