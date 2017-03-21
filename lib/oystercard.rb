@@ -13,6 +13,7 @@ class Oystercard
   end
 
   def deduct(money)
+    self.balance -= money
   end
 
   private

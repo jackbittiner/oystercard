@@ -29,8 +29,7 @@ describe Oystercard do
 
       it 'deducts the amount of money specified as the argument' do
         subject.top_up(10)
-        subject.deduct(5)
-        expect(subject.balance).to eq 5
+        expect{subject.deduct 5}.to change{ subject.balance }.by -5
       end
 
   end
