@@ -40,6 +40,7 @@ describe Oystercard do
 
   describe '#touch_in' do
     it 'changes in_journey to true when card is touched in' do
+      subject.top_up(Oystercard::MIN_FARE)
       subject.touch_in
       expect(subject.in_journey).to eq true
     end
@@ -52,6 +53,7 @@ describe Oystercard do
 
   describe '#touch_out' do
     it 'changes in_journey to false when card is touched out' do
+      subject.top_up(Oystercard::MIN_FARE)
       subject.touch_in
       subject.touch_out
       expect(subject.in_journey).to eq false
