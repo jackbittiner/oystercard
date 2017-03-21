@@ -16,7 +16,7 @@ class Oystercard
   end
 
 
-  def touch_in
+  def touch_in(station)
     fail "Insufficient Funds" if balance < MIN_FARE
     self.in_journey = true
   end

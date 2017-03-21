@@ -1,6 +1,9 @@
 require 'oystercard'
 
 describe Oystercard do
+
+  let(:station) {double (:station)}
+
   it { is_expected.to respond_to(:top_up).with(1).argument}
 
   describe '#balance' do
@@ -32,12 +35,18 @@ describe Oystercard do
     it { is_expected.to respond_to(:touch_in).with(1).argument }
     it 'changes in_journey to true when card is touched in' do
       subject.top_up(Oystercard::MIN_FARE)
-      subject.touch_in
+      subject.touch_in(station)
       expect(subject.in_journey).to eq true
     end
 
     it 'raises an error when the card has insufficient funds' do
-      expect { subject.touch_in }.to raise_error "Insufficient Funds"
+      expect { subject.touch_in(station) }.to raise_error "Insufficient Funds"
+    end
+
+    it 'assigns the current station when touched in' do
+      subject.top_up(Oystercard::MIN_FARE)
+      subject.touch_in(station)
+      expect(subject.current_station).to eq station
     end
 
   end
@@ -45,7 +54,7 @@ describe Oystercard do
   describe '#touch_out' do
     it 'changes in_journey to false when card is touched out' do
       subject.top_up(Oystercard::MIN_FARE)
-      subject.touch_in
+      subject.touch_in(station)
       subject.touch_out
       expect(subject.in_journey).to eq false
     end
