@@ -12,7 +12,7 @@ class Oystercard
   end
 
   def top_up(money)
-    fail "Maximum Balance of #{limit} Reached" if balance + money > limit
+    fail "Max Balance of #{limit} Reached" if balance + money > limit
     self.balance += money
   end
 
@@ -24,6 +24,7 @@ class Oystercard
 
   def touch_out(station)
     deduct(MIN_FARE)
+    self.journeys << {entry_station => station}
     self.entry_station = nil
   end
 
@@ -33,7 +34,7 @@ class Oystercard
 
   private
 
-  attr_writer :balance, :entry_station
+  attr_writer :balance, :entry_station, :journeys
 
   def deduct(money)
     self.balance -= money
